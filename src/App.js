@@ -4,18 +4,23 @@ import TodoList from "./components/TodoComponents/TodoList";
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        task: "Organize Garage",
-        id: 1528817077286,
-        completed: false
-      },
-      {
-        task: "Bake Cookies",
-        id: 1528817084358,
-        completed: false
-      }
-    ]
+    todos: []
+  };
+
+  componentDidMount() {
+    let todos = JSON.parse(localStorage.getItem("todoList"));
+    console.log(todos);
+    this.setState({ todos: todos });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log(prevProps);
+    localStorage.setItem("todoList", JSON.stringify(prevState.todos));
+    console.log("did update");
+  }
+
+  handleCompleteStatus = () => {
+    this.setState({});
   };
 
   handleDeleteTodos = () => {

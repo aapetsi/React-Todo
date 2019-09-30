@@ -4,14 +4,21 @@ class TodoForm extends Component {
   state = {
     task: "",
     completed: false,
-    id: ""
+    id: "",
+    error: ""
   };
 
   addNewTodo = e => {
     e.preventDefault();
     let todo = this.state;
-    todo.id = Date.now();
-    this.props.callbackFunction(todo);
+    console.log(todo);
+    if (!todo.error) {
+      this.setState({ error: "Enter a valid todo" });
+    } else {
+      this.setState({ error: "" });
+      todo.id = Date.now();
+      this.props.callbackFunction(todo);
+    }
   };
 
   handleChange = e => {
@@ -22,6 +29,7 @@ class TodoForm extends Component {
     const { handleDeleteTodos } = this.props;
     return (
       <div>
+        {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.addNewTodo}>
           <input name="task" onChange={this.handleChange} type="text" />
           <button type="submit">Add Todo</button>

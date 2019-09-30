@@ -6,15 +6,19 @@ import Todo from "./Todo";
 class TodoList extends Component {
   render() {
     const { todos } = this.props;
-    console.log(todos);
-    return (
-      <div>
-        <p>TodoList component</p>
-        {todos.map(todo => (
-          <Todo todo={todo} key={todo.id} />
-        ))}
-      </div>
-    );
+
+    if (!todos) {
+      return <p>Enter a new todo</p>;
+    } else {
+      return (
+        <div>
+          <p>TodoList component</p>
+          {todos.map(todo => (
+            <Todo todo={todo} key={todo.id} />
+          ))}
+        </div>
+      );
+    }
   }
 }
 
